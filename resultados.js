@@ -1,5 +1,8 @@
-// URL de publicación CSV oficial de tu Google Sheet
+// URL directa del CSV de tu Google Sheet
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTP9OtxPqISo9zQseQIagiClVjxfITTOF4Q9ecPw0PVq4hM8qBP3O_5dF3P8gnz3WrOU71kg8Jeo4RE/pub?gid=0&single=true&output=csv";
+
+// Proxy seguro para evitar el bloqueo CORS del navegador
+const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(CSV_URL);
 
 let resumenChartInstance = null;
 let gradosChartInstance = null;
@@ -28,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 async function cargarDatos() {
     const elemEstado = document.getElementById("estadoCarga");
     try {
-        const response = await fetch(CSV_URL);
+        // Petición a través del proxy para omitir bloqueo de Google
+        const response = await fetch(PROXY_URL);
         if (!response.ok) throw new Error("No se pudo obtener el CSV");
         
         const csvText = await response.text();
@@ -40,13 +44,13 @@ async function cargarDatos() {
     } catch (error) {
         console.error("Error al cargar datos:", error);
         if (elemEstado) {
-            elemEstado.innerText = "❌ Error al conectar con Google Sheets. Verifica la publicación CSV.";
+            elemEstado.innerText = "❌ Error al conectar con Google Sheets. Intentando reconectar...";
             elemEstado.style.color = "#E74C3C";
         }
     }
 }
 
-// Lector y limpiador de datos CSV
+// Lector y limpiador de CSV
 function parseCSV(text) {
     const lines = text.trim().split(/\r?\n/);
     if (lines.length <= 1) return [];
@@ -112,7 +116,7 @@ function procesarYGraficar(data) {
 
     const paletaColores = ['#00AEEF', '#9B59B6', '#E74C3C', '#F1C40F', '#2ECC71'];
 
-    // Gráfico 1: Total de Votos
+    // Gráfico 1: Conteo Total
     const ctxResumen = document.getElementById("resumenChart");
     if (ctxResumen) {
         if (resumenChartInstance) resumenChartInstance.destroy();
