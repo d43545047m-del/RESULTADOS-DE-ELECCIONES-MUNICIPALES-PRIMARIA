@@ -1,5 +1,5 @@
-// URL directa exportada como CSV desde tu Google Sheet
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR_gJ1gJ54IEkOTwi0c2RFLEyxB1csqydki1HplYBHEY6ujGK7uYEqd7r1VjxKdu6JO_djDiAQbg_wA/pub?output=csv";
+// URL directa exportada como CSV desde TU Google Sheet actual:
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTP9OtxPqISo9zQseQlagiClVjxflTTOF4Q9ecPwOPVq4hM8qBP3O_5dF3P8gnz3WrOU71kg8Jeo4RE/pub?gid=0&single=true&output=csv";
 
 let resumenChartInstance = null;
 let gradosChartInstance = null;
@@ -21,6 +21,8 @@ function normalizarNombreLista(votoOriginal) {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarDatos();
+    // Actualización en tiempo real cada 5 segundos
+    setInterval(cargarDatos, 5000);
 });
 
 async function cargarDatos() {
@@ -38,7 +40,7 @@ async function cargarDatos() {
     } catch (error) {
         console.error("Error al cargar datos:", error);
         if (elemEstado) {
-            elemEstado.innerText = "❌ Error al conectar con Google Sheets. Verifica tu conexión.";
+            elemEstado.innerText = "❌ Error al conectar con Google Sheets. Verifica la publicación CSV.";
             elemEstado.style.color = "#E74C3C";
         }
     }
