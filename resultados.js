@@ -5,16 +5,16 @@ let resumenChartInstance = null;
 let gradosChartInstance = null;
 let listaGanadoraNombre = "Sin votos registrados";
 
-// Normalización flexible para mapear votos
+// Normalización flexible para mapear exactamente las 5 listas activas
 function normalizarNombreLista(votoOriginal) {
     if (!votoOriginal) return "";
     const texto = votoOriginal.toString().trim().toLowerCase();
 
-    if (texto.includes("progreso") || texto.includes("lista 1")) return "Lista 1:Unión Modelista";
-    if (texto.includes("auren") || texto.includes("lista 2")) return "Lista 2: Triunfadores en acción";
-    if (texto.includes("cambio") || texto.includes("lista 3")) return "Lista 3: Manos unidas, huellas del futuro";
-    if (texto.includes("auren") || texto.includes("lista 2")) return "Lista 4: Estrellas unidas por el cambio";
-    if (texto.includes("cambio") || texto.includes("lista 3")) return "Lista 5: Golden M - Voces brillantes";
+    if (texto.includes("unión modelista") || texto.includes("lista 1")) return "Lista 1: Unión Modelista";
+    if (texto.includes("triunfadores en acción") || texto.includes("lista 2")) return "Lista 2: Triunfadores en acción";
+    if (texto.includes("manos unidas") || texto.includes("lista 3")) return "Lista 3: Manos unidas, huellas del futuro";
+    if (texto.includes("estrellas unidas") || texto.includes("lista 4")) return "Lista 4: Estrellas unidas por el cambio";
+    if (texto.includes("golden m") || texto.includes("lista 5")) return "Lista 5: Golden M - Voces brillantes";
 
     return "";
 }
@@ -31,7 +31,6 @@ async function cargarDatos() {
         
         const csvText = await response.text();
         
-        // Ocultar mensaje de carga
         if (elemEstado) elemEstado.style.display = "none";
 
         const data = parseCSV(csvText);
@@ -52,7 +51,6 @@ function parseCSV(text) {
 
     const result = [];
     for (let i = 1; i < lines.length; i++) {
-        // Eliminar comillas extras y separar valores por comas
         const row = lines[i].replace(/"/g, '').split(",");
         
         if (row.length >= 2) {
@@ -70,9 +68,11 @@ function parseCSV(text) {
 
 function procesarYGraficar(data) {
     const conteoListas = {
-        "Lista 1: Progreso Estudiantil": 0,
-        "Lista 2: Auren Modelista": 0,
-        "Lista 3: Somos el Cambio": 0
+        "Lista 1: Unión Modelista": 0,
+        "Lista 2: Triunfadores en acción": 0,
+        "Lista 3: Manos unidas, huellas del futuro": 0,
+        "Lista 4: Estrellas unidas por el cambio": 0,
+        "Lista 5: Golden M - Voces brillantes": 0
     };
 
     const conteoGrados = {};
@@ -87,7 +87,6 @@ function procesarYGraficar(data) {
         }
     });
 
-    // LÓGICA REVISADA: Determinar ganador o empate
     let maxVotos = 0;
     let ganadores = [];
 
@@ -95,9 +94,9 @@ function procesarYGraficar(data) {
         const votos = conteoListas[lista];
         if (votos > maxVotos) {
             maxVotos = votos;
-            ganadores = [lista]; // Hay un nuevo líder
+            ganadores = [lista];
         } else if (votos === maxVotos && votos > 0) {
-            ganadores.push(lista); // Empate en primer lugar
+            ganadores.push(lista);
         }
     });
 
@@ -108,6 +107,8 @@ function procesarYGraficar(data) {
     } else {
         listaGanadoraNombre = `🤝 Empate entre: ${ganadores.join(" / ")} (${maxVotos} votos c/u)`;
     }
+
+    const paletaColores = ['#00AEEF', '#9B59B6', '#E74C3C', '#F1C40F', '#2ECC71'];
 
     // Gráfico 1: Conteo Total
     const ctxResumen = document.getElementById("resumenChart");
@@ -120,7 +121,7 @@ function procesarYGraficar(data) {
                 datasets: [{
                     label: 'Total Votos',
                     data: todasLasListas.map(l => conteoListas[l]),
-                    backgroundColor: ['#00AEEF', '#FFD700', '#E74C3C'],
+                    backgroundColor: paletaColores,
                     borderRadius: 8
                 }]
             },
@@ -136,12 +137,11 @@ function procesarYGraficar(data) {
     const ctxGrados = document.getElementById("gradosChart");
     if (ctxGrados) {
         if (gradosChartInstance) gradosChartInstance.destroy();
-        const colores = ['#00AEEF', '#FFD700', '#E74C3C'];
         
         const datasetsGrados = todasLasListas.map((lista, index) => ({
             label: lista,
             data: todosLosGrados.map(g => (conteoGrados[g] && conteoGrados[g][lista]) ? conteoGrados[g][lista] : 0),
-            backgroundColor: colores[index],
+            backgroundColor: paletaColores[index],
             borderRadius: 6
         }));
 
