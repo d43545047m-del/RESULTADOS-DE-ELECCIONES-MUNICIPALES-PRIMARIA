@@ -1,5 +1,5 @@
-// Exportación directa desde tu Google Sheet por ID
-const CSV_URL = "https://docs.google.com/spreadsheets/d/1Jn1y332lkYQB5RMSIJxu5jML3TGP4yBd7-b1wdz6Ec4/export?format=csv&gid=0";
+// URL de publicación CSV oficial de tu Google Sheet
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTP9OtxPqISo9zQseQIagiClVjxfITTOF4Q9ecPw0PVq4hM8qBP3O_5dF3P8gnz3WrOU71kg8Jeo4RE/pub?gid=0&single=true&output=csv";
 
 let resumenChartInstance = null;
 let gradosChartInstance = null;
@@ -21,7 +21,7 @@ function normalizarNombreLista(votoOriginal) {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarDatos();
-    // Actualización automática en tiempo real cada 5 segundos
+    // Auto-refresco en vivo cada 5 segundos
     setInterval(cargarDatos, 5000);
 });
 
@@ -46,7 +46,7 @@ async function cargarDatos() {
     }
 }
 
-// Lector y limpiador de CSV
+// Lector y limpiador de datos CSV
 function parseCSV(text) {
     const lines = text.trim().split(/\r?\n/);
     if (lines.length <= 1) return [];
@@ -112,7 +112,7 @@ function procesarYGraficar(data) {
 
     const paletaColores = ['#00AEEF', '#9B59B6', '#E74C3C', '#F1C40F', '#2ECC71'];
 
-    // Gráfico 1: Conteo Total
+    // Gráfico 1: Total de Votos
     const ctxResumen = document.getElementById("resumenChart");
     if (ctxResumen) {
         if (resumenChartInstance) resumenChartInstance.destroy();
