@@ -1,128 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resultados Elecciones 🗳️</title>
-<link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Elecciones 🗳️</title>
+    <link rel="icon" type="image/png" href="logo.png">
 
-<!-- Fuente moderna -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-    :root { 
-        --azul-oscuro: #0A2342;
-        --azul-borde: #00AEEF;
-        --fondo: #F0F6FA;
-    }
+    <style>
+        :root { 
+            --azul-oscuro: #0A2342;
+            --azul-borde: #00AEEF;
+            --fondo: #F0F6FA;
+        }
 
-    body { 
-        font-family: 'Poppins', sans-serif;
-        background: var(--fondo);
-        margin: 0;
-        padding: 30px;
-        color: #444;
-    }
+        body { 
+            font-family: 'Poppins', sans-serif;
+            background: var(--fondo);
+            margin: 0;
+            padding: 30px;
+            color: #444;
+        }
 
-    .dashboard-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        background: white;
-        padding: 35px;
-        border-radius: 22px;
-        box-shadow: 0 12px 45px rgba(0,0,0,0.09);
-    }
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 12px 45px rgba(0,0,0,0.09);
+        }
 
-    h1 {
-        text-align: center;
-        color: var(--azul-oscuro);
-        font-size: 2.2em;
-        margin-bottom: 25px;
-        border-bottom: 3px solid var(--azul-borde);
-        padding-bottom: 12px;
-    }
+        h1 {
+            text-align: center;
+            color: var(--azul-oscuro);
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--azul-borde);
+            padding-bottom: 12px;
+        }
 
-    h2 {
-        color: var(--azul-oscuro);
-        text-align: center;
-        margin-top: 35px;
-        margin-bottom: 15px;
-        font-weight: 600;
-    }
+        h2 {
+            color: var(--azul-oscuro);
+            text-align: center;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
 
-    .btn-ganador {
-        background: #FFD700;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.2em;
-        font-weight: bold;
-        cursor: pointer;
-        display: block;
-        margin: 0 auto 25px auto;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        transition: 0.3s;
-    }
-    .btn-ganador:hover { transform: scale(1.05); }
+        .btn-ganador {
+            background: #FFD700;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .btn-ganador:hover { transform: scale(1.05); }
 
-    #winnerModal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(4px);
-        justify-content: center;
-        align-items: center;
-        z-index: 9000;
-    }
+        #winnerModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9000;
+        }
 
-    .winnerBox {
-        background: white;
-        padding: 35px;
-        border-radius: 18px;
-        width: 420px;
-        text-align: center;
-        animation: popIn 0.4s ease-out forwards;
-    }
+        .winnerBox {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            width: 420px;
+            text-align: center;
+            animation: popIn 0.4s ease-out forwards;
+        }
 
-    @keyframes popIn {
-        0% { transform: scale(0.7); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
-    }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
-    .winnerBox h2 { color: var(--azul-oscuro); font-size: 1.9rem; margin-bottom: 10px; }
-    .winnerBox button {
-        margin-top: 20px;
-        padding: 10px 22px;
-        background: var(--azul-borde);
-        border: none;
-        border-radius: 10px;
-        color: white;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-    }
+        .winnerBox h2 { color: var(--azul-oscuro); font-size: 1.9rem; margin-bottom: 10px; }
+        .winnerBox button {
+            margin-top: 20px;
+            padding: 10px 22px;
+            background: var(--azul-borde);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
 
-    /* Corrección de altura para evitar colapso de Chart.js */
-    .chart-container {
-        position: relative;
-        width: 100%;
-        height: 400px; /* Altura explícita para renderizar el canvas */
-        margin: 0 auto 30px auto;
-    }
+        /* Contenedor adaptativo para canvas de Chart.js */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 0 auto 30px auto;
+        }
 
-    .estado-carga {
-        text-align: center;
-        font-size: 1.1rem;
-        color: #00AEEF;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-</style>
+        .estado-carga {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #00AEEF;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+    </style>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
