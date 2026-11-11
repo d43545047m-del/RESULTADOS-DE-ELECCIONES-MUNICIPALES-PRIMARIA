@@ -1,11 +1,11 @@
-// URL directa exportada como CSV desde TU Google Sheet actual:
+ // URL de publicación CSV extraída directamente de tu Google Sheet
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTP9OtxPqISo9zQseQlagiClVjxflTTOF4Q9ecPwOPVq4hM8qBP3O_5dF3P8gnz3WrOU71kg8Jeo4RE/pub?gid=0&single=true&output=csv";
 
 let resumenChartInstance = null;
 let gradosChartInstance = null;
 let listaGanadoraNombre = "Sin votos registrados";
 
-// Normalización flexible para mapear exactamente las 5 listas activas
+// Normalización flexible para mapear las 5 listas oficiales
 function normalizarNombreLista(votoOriginal) {
     if (!votoOriginal) return "";
     const texto = votoOriginal.toString().trim().toLowerCase();
@@ -21,7 +21,7 @@ function normalizarNombreLista(votoOriginal) {
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarDatos();
-    // Actualización en tiempo real cada 5 segundos
+    // Actualización automática en tiempo real cada 5 segundos
     setInterval(cargarDatos, 5000);
 });
 
