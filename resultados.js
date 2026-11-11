@@ -10,9 +10,11 @@ function normalizarNombreLista(votoOriginal) {
     if (!votoOriginal) return "";
     const texto = votoOriginal.toString().trim().toLowerCase();
 
-    if (texto.includes("progreso") || texto.includes("lista 1")) return "Lista 1: Progreso Estudiantil";
-    if (texto.includes("auren") || texto.includes("lista 2")) return "Lista 2: Auren Modelista";
-    if (texto.includes("cambio") || texto.includes("lista 3")) return "Lista 3: Somos el Cambio";
+    if (texto.includes("progreso") || texto.includes("lista 1")) return "Lista 1:Unión Modelista";
+    if (texto.includes("auren") || texto.includes("lista 2")) return "Lista 2: Triunfadores en acción";
+    if (texto.includes("cambio") || texto.includes("lista 3")) return "Lista 3: Manos unidas, huellas del futuro";
+    if (texto.includes("auren") || texto.includes("lista 2")) return "Lista 4: Estrellas unidas por el cambio";
+    if (texto.includes("cambio") || texto.includes("lista 3")) return "Lista 5: Golden M - Voces brillantes";
 
     return "";
 }
